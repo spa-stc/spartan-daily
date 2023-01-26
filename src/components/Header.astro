@@ -1,6 +1,6 @@
 ---
-import dayjs from "dayjs"
-import spartan from "../assets/spartan.webp"
+import dayjs from "dayjs";
+import spartan from "../assets/spartan.webp";
 const date = dayjs().format("ddd, MMMM D h:m:ss a");
 ---
 
@@ -13,17 +13,20 @@ const date = dayjs().format("ddd, MMMM D h:m:ss a");
 </div>
 
 <script>
-    import dayjs from "dayjs";
+  import dayjs from "dayjs";
 
-    const h1 = document.querySelector("[data-date]") as Element;
-    window.setInterval(function updateDate() {
-        h1.textContent = dayjs().format("ddd, MMMM D h:m:ss a");
-        return updateDate;
-    }(), 500)
+  const h1 = document.querySelector("[data-date]") as Element;
+  window.setInterval(
+    (function updateDate() {
+      h1.textContent = dayjs().format("ddd, MMMM D h:m:ss a");
+      return updateDate;
+    })(),
+    500
+  );
 </script>
 
 <style>
-    h1 {
-        color: #015B8E;
-    }
+  h1 {
+    color: #015b8e;
+  }
 </style>

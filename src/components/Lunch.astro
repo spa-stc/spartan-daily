@@ -5,5 +5,5 @@ import Card from "./Card.astro";
 
 <Card
   title="Today's Lunch"
-  body = {await Veracross.getLunch() ?? "Information not available/not served"}
+  body={(await Veracross.getLunch()) ?? "Information not available/not served"}
 />

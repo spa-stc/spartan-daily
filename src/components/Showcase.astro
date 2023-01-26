@@ -2,23 +2,27 @@
 import Google from "../utils/google";
 import Card from "./Card.astro";
 
-const images = await Google.getImages()
+const images = await Google.getImages();
 ---
 
 <Card title="Student Group Showcase">
-    <img data-showcase-img src={images.at(0)} alt="Featured image. Content not predetermined" />
-    <script define:vars={{ images }}>
-        const img = document.querySelector("[data-showcase-img]");
-        let image = 0;
+  <img
+    data-showcase-img
+    src={images.at(0)}
+    alt="Featured image. Content not predetermined"
+  />
+  <script define:vars={{ images }}>
+    const img = document.querySelector("[data-showcase-img]");
+    let image = 0;
 
-        setInterval(() => {
-          image++;
+    setInterval(() => {
+      image++;
 
-          if (image >= images.length) {
-            image = 0;
-           }
+      if (image >= images.length) {
+        image = 0;
+      }
 
-          img.src = images[image];
-        }, 30 * 1000)
-    </script>
+      img.src = images[image];
+    }, 30 * 1000);
+  </script>
 </Card>
