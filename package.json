@@ -13,6 +13,7 @@
   "dependencies": {
     "@type-cacheable/core": "^11.0.1",
     "@type-cacheable/node-cache-adapter": "^11.0.2",
+    "clsx": "^1.2.1",
     "dayjs": "^1.11.7",
     "node-cache": "^5.1.2"
   },
