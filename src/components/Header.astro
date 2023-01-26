@@ -1,0 +1,29 @@
+---
+import dayjs from "dayjs"
+import spartan from "../assets/spartan.webp"
+const date = dayjs().format("ddd, MMMM D h:m:ss a");
+---
+
+<div class="flex mt5 mx5 items-center">
+  <a href="/" class="h10 flex items-center">
+    <img class="h15 hover:scale-110" src={spartan} alt="Spartan" />
+    <h1 class="h12 m2 font-title text-6xl">Spartan Daily</h1>
+  </a>
+  <h1 data-date class="font-os absolute right-10 text-2xl">{date}</h1>
+</div>
+
+<script>
+    import dayjs from "dayjs";
+
+    const h1 = document.querySelector("[data-date]") as Element;
+    window.setInterval(function updateDate() {
+        h1.textContent = dayjs().format("ddd, MMMM D h:m:ss a");
+        return updateDate;
+    }(), 500)
+</script>
+
+<style>
+    h1 {
+        color: #015B8E;
+    }
+</style>

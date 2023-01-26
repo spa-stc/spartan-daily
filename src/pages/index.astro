@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Today from '../components/Today.astro';
+import Showcase from '../components/Showcase.astro';
+import Card from '../components/Card.astro';
+---
+
+<Layout title="Spartan Daily">
+	<main>
+		<div class="grid grid-cols-2 gap-4">
+			<Card title="Announcements" body="Not yet implemented" />
+			<Today />
+			<Showcase />
+			<Card title="House Cup" body="Not yet implemented" />
+			<Card title="Student Newsletter" body="Not yet implemented (qr code to student newsletter? --- is this something we'd want?)" />
+
+		</div>
+	</main>
+</Layout>
+
+<style>
+  main {
+    padding: 1.5rem;
+    /* max-width: 120ch; */
+  }
+</style>

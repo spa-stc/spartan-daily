@@ -1,0 +1,25 @@
+---
+import { getImages } from "../utils/google";
+import Card from "./Card.astro";
+
+const images = await getImages()
+---
+
+<Card title="Image Showcase">
+    <img data-showcase-img src={images.at(0)} alt="Featured image. Content not predetermined" />
+    <script define:vars={{ images }}>
+        const img = document.querySelector("[data-showcase-img]");
+        let image = 0;
+
+        setInterval(() => {
+          image++;
+
+          console.log(`image: ${image}, images length: ${images.length}`)
+          if (image >= images.length) {
+            image = 0;
+           }
+
+          img.src = images[image];
+        }, 30 * 1000)
+    </script>
+</Card>

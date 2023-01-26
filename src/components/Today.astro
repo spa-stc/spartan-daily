@@ -1,0 +1,25 @@
+---
+import { getImages } from "../utils/google";
+import { getLunch, getSchedule } from "../utils/veracross";
+import Card from "./Card.astro";
+
+const schedule = await getSchedule()
+---
+
+<ul class="space-y-4">
+  <Card
+    title="Today's Lunch"
+    body = {await getLunch() ?? "Information not available/not served"}
+    />
+  <Card
+    title="X Period Today"
+    body="Not implemented"
+    />
+  <Card title="Schedule">
+    <ul class="list-disc ml4">
+        {schedule.map(block => (
+            <li>{block}</li>
+        ))}
+    </ul>
+  </Card>
+</ul>
