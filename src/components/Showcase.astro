@@ -5,7 +5,7 @@ import Card from "./Card.astro";
 const images = await getImages()
 ---
 
-<Card title="Image Showcase">
+<Card title="Student Group Showcase">
     <img data-showcase-img src={images.at(0)} alt="Featured image. Content not predetermined" />
     <script define:vars={{ images }}>
         const img = document.querySelector("[data-showcase-img]");

@@ -25,5 +25,5 @@ export async function getSchedule(): Promise<string[]>{
         .filter(event => dayjs(event.DTSTART, "YYYYMMDD[T]HHmmss[Z]").isSame(dayjs(), 'day'))
         .filter(event => !(event.SUMMARY as string).endsWith("L"))
         .map(event => event.SUMMARY.replaceAll(/US |E$/g, ""));
-    return schedule?.length > 0 ? schedule : ["Unknown"] 
+    return schedule?.length > 0 ? schedule : ["Classes not scheduled today"] 
 }

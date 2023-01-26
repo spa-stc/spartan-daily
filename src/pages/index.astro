@@ -4,6 +4,10 @@ import Today from '../components/Today.astro';
 import Showcase from '../components/Showcase.astro';
 import Card from '../components/Card.astro';
 import Announcements from '../components/Announcements.astro';
+import QRCode from 'qrcode';
+
+// no perms to fetch this right now, so... minimal POC
+const newsletter = await QRCode.toDataURL("https://docs.google.com/document/d/1OsR6CF628j_h-wipe8DoZCssiBl5K_N_sJ7NsmrzYYQ/edit")
 ---
 
 <Layout title="Spartan Daily">
@@ -12,10 +16,10 @@ import Announcements from '../components/Announcements.astro';
 			<Showcase />
 			<Today />
 			<Announcements />
-		
 			<Card title="House Cup" body="Not yet implemented" />
-			<Card title="Student Newsletter" body="Not yet implemented (qr code to student newsletter? --- is this something we'd want?)" />
-
+			<Card title="Student Newsletter">
+				<img src={newsletter}>
+			</Card>
 		</div>
 	</main>
 </Layout>
