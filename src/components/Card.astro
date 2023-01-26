@@ -11,10 +11,10 @@ const { title, body } = Astro.props;
 <li class="flex p1 list-none bg-white b-rd-2">
 	<div class="pt pb pr5 pl5">
 		<h2 class="m0">
-		    {title}
+			{title}
 		</h2>
 		<div class="mt2 mb0 color-gray-600">
-		    {body ?? <slot />}
+			{body ?? <slot />}
 		</div>	
 	</div>
 </li>

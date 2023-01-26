@@ -1,0 +1,14 @@
+---
+import { getSchedule } from "../utils/veracross";
+import Card from "./Card.astro";
+
+const schedule = await getSchedule()
+---
+
+<Card title="Schedule">
+    <ul class="list-disc ml4">
+        {schedule.map(block => (
+            <li>{block}</li>
+        ))}
+    </ul>
+</Card>

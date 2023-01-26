@@ -1,32 +1,35 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Today from '../components/Today.astro';
 import Showcase from '../components/Showcase.astro';
 import Card from '../components/Card.astro';
 import Announcements from '../components/Announcements.astro';
 import QRCode from 'qrcode';
+import XPeriod from '../components/XPeriod.astro';
+import Lunch from '../components/Lunch.astro';
+import Schedule from '../components/Schedule.astro';
 
 // no perms to fetch this right now, so... minimal POC
 const newsletter = await QRCode.toDataURL("https://docs.google.com/document/d/1OsR6CF628j_h-wipe8DoZCssiBl5K_N_sJ7NsmrzYYQ/edit")
 ---
 
 <Layout title="Spartan Daily">
-	<main>
-		<div class="grid grid-cols-2 gap-4">
-			<Showcase />
-			<Today />
-			<Announcements />
-			<Card title="House Cup" body="Not yet implemented" />
+	<main class="p6 ma" style="max-width: 120ch;">
+		<div class="grid grid-cols-4 gap-3">
+			<div class="row-span-12">
+				<Announcements />
+			</div>
+			<div class="row-span-3 col-span-2">
+				<Showcase />
+			</div>
+			<Lunch />
+			<Schedule />
+			<XPeriod />
+			<div class="row-span-2 col-span-2">
+				<Card title="House Cup" body="Not yet implemented" />
+			</div>
 			<Card title="Student Newsletter">
 				<img src={newsletter}>
 			</Card>
 		</div>
 	</main>
 </Layout>
-
-<style>
-  main {
-    padding: 1.5rem;
-    /* max-width: 120ch; */
-  }
-</style>
