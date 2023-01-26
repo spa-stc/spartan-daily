@@ -13,7 +13,7 @@ const rotationCal = await getSource("rotation-calendar")
 export async function getLunch() {
     const cal = lines2tree((await (await fetch(lunchCal)).text()).split(NEWLINE))
     return (cal.VCALENDAR[0]?.VEVENT.filter(event => dayjs(event.DTSTART.__value__, "YYYYMMDD").isSame(dayjs(), 'day')).at(0)?.DESCRIPTION as string)
-      .replace(/\\n$/g, "")
+      .replace(/\\n*$/g, "")
       .replaceAll("\\n", ", ")
 }
 
