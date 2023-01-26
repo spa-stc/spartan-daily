@@ -1,8 +1,8 @@
 ---
-import { getSchedule } from "../utils/veracross";
+import Veracross from "../utils/veracross";
 import Card from "./Card.astro";
 
-const schedule = await getSchedule()
+const schedule = await Veracross.getSchedule()
 ---
 
 <Card title="Schedule">

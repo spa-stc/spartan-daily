@@ -11,7 +11,10 @@
     "astro": "astro"
   },
   "dependencies": {
-    "dayjs": "^1.11.7"
+    "@type-cacheable/core": "^11.0.1",
+    "@type-cacheable/node-cache-adapter": "^11.0.2",
+    "dayjs": "^1.11.7",
+    "node-cache": "^5.1.2"
   },
   "devDependencies": {
     "@astrojs/node": "^5.0.0",
@@ -27,5 +30,8 @@
     "qrcode": "^1.5.1",
     "unocss": "^0.49.0"
   },
-  "packageManager": "yarn@3.3.1"
+  "packageManager": "yarn@3.3.1",
+  "resolutions": {
+    "@type-cacheable/core@^11.0.1": "patch:@type-cacheable/core@npm%3A11.0.1#./.yarn/patches/@type-cacheable-core-npm-11.0.1-02da81a3a0.patch"
+  }
 }

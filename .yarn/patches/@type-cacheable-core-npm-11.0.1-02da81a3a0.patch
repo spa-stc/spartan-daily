@@ -1,0 +1,12 @@
+diff --git a/package.json b/package.json
+index a587216073726ccaec1060be88bedaf2b1c9c94e..c0237b9182e15da743d65d8c43f85dc13ee586b9 100644
+--- a/package.json
++++ b/package.json
+@@ -3,7 +3,6 @@
+   "version": "11.0.1",
+   "description": "TypeScript-based caching decorators",
+   "main": "dist/index.js",
+-  "module": "./index.ts",
+   "types": "dist/index.d.ts",
+   "files": [
+     "dist/**/*"

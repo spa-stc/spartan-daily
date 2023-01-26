@@ -1,8 +1,8 @@
 ---
-import { getImages } from "../utils/google";
+import Google from "../utils/google";
 import Card from "./Card.astro";
 
-const images = await getImages()
+const images = await Google.getImages()
 ---
 
 <Card title="Student Group Showcase">

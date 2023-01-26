@@ -1,15 +1,15 @@
 ---
-import { getAnnouncements, getImages } from "../utils/google";
+import Google from "../utils/google";
 import Card from "./Card.astro";
 
-const announcements = await getAnnouncements()
+const announcements = await Google.getAnnouncements()
 ---
 
 <Card title="Announcements">
 <ul>
     {announcements.map(a => (
         <li>
-            <h1>{a.title}</h3>
+            <h1>{a.title}</h1>
             <p>{a.body}</p>
             <img src={a.image} alt="Image associated with announcement text">
         </li>

@@ -1,9 +1,9 @@
 ---
-import { getLunch } from "../utils/veracross";
+import Veracross from "../utils/veracross";
 import Card from "./Card.astro";
 ---
 
 <Card
   title="Today's Lunch"
-  body = {await getLunch() ?? "Information not available/not served"}
+  body = {await Veracross.getLunch() ?? "Information not available/not served"}
 />
