@@ -4,7 +4,7 @@ import { JWT } from "google-auth-library"
 import { drive } from "@googleapis/drive"
 
 const email = process.env.GOOGLE_SERVICE_EMAIL as string;
-const key = process.env.GOOGLE_SERVICE_PRIVATE_KEY as string;
+const key = (process.env.GOOGLE_SERVICE_PRIVATE_KEY as string).replaceAll("\\n", "\n");
 
 const sources_sheet = new GoogleSpreadsheet(SOURCES_ID);
 await sources_sheet.useServiceAccountAuth({
