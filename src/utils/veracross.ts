@@ -21,8 +21,9 @@ export async function getSchedule(): Promise<string[]>{
     const cal = lines2tree((await (await fetch(rotationCal)).text()).split(NEWLINE))
     let html = "";
 
-    return cal.VCALENDAR[0]?.VEVENT
-        .filter(event => dayjs(event.DTSTART, "YYYYMMDD[T]HHmmss[Z]").isSame(dayjs().subtract(1, 'day'), 'day'))
+    const schedule = cal.VCALENDAR[0]?.VEVENT
+        .filter(event => dayjs(event.DTSTART, "YYYYMMDD[T]HHmmss[Z]").isSame(dayjs(), 'day'))
         .filter(event => !(event.SUMMARY as string).endsWith("L"))
         .map(event => event.SUMMARY.replaceAll(/US |E$/g, ""));
+    return schedule?.length > 0 ? schedule : ["Unknown"] 
 }
