@@ -10,7 +10,7 @@ const { title, body } = Astro.props;
 ---
 
 <li class="flex p1 list-none bg-white b-rd-2">
-  <div class="pt pb pr5 pl5">
+  <div class="pt pb pr5 pl5 wfull">
     {title && <h2 class="m0">{title}</h2>}
     <div class={clsx(title && "mt2", "mb0", "color-gray-600")}>
       {body ?? <slot />}

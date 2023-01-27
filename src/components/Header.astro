@@ -4,7 +4,7 @@ import spartan from "../assets/spartan.webp";
 const date = dayjs().format("ddd, MMMM D h:m:ss a");
 ---
 
-<div class="flex mt5 mx5 items-center">
+<div class="flex mt5 mx5 items-center text-navy">
   <a href="/" class="h10 flex items-center">
     <img class="h15 hover:scale-110" src={spartan} alt="Spartan" />
     <h1 class="h12 m2 font-title text-6xl">Spartan Daily</h1>
@@ -24,9 +24,3 @@ const date = dayjs().format("ddd, MMMM D h:m:ss a");
     500
   );
 </script>
-
-<style>
-  h1 {
-    color: #015b8e;
-  }
-</style>

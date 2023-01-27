@@ -1,0 +1,35 @@
+---
+import clsx from "clsx";
+import Card from "../Card.astro";
+
+type CupData = {
+  blue: number;
+  gold: number;
+};
+
+const data = {
+  blue: 0,
+  gold: 600,
+} as CupData;
+
+const height = (val: number) => "height: " + Math.max((val / Math.max(data.blue, data.gold)) * 15, 0.025) + "rem;"
+---
+
+<Card title="House Cup">
+  <div class="flex items-end mt8 space-x-3">
+    <div class="relative flex flex-col items-center grow pb-6">
+      <span class="absolute top-0 -mt-6 text-xs font-bold">
+        {data.gold}
+      </span>
+      <div class="wfull bg-vegas" style={height(data.gold)}></div>
+      <span class="absolute bottom-0 text-sm font-bold">Gold</span>
+    </div>
+    <div class="relative flex flex-col items-center grow pb-6">
+      <span class="absolute top-0 -mt-6 text-xs font-bold">
+        {data.blue}
+      </span>
+      <div class="wfull bg-navy" style={height(data.blue)}></div>
+      <span class="absolute bottom-0 text-sm font-bold">Blue</span>
+    </div>
+  </div>
+</Card>

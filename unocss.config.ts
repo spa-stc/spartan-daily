@@ -17,4 +17,10 @@ export default defineConfig({
       },
     }),
   ],
+  theme: {
+    colors: {
+      navy: "#004a8f",
+      vegas: "#fec10d",
+    },
+  },
 });
