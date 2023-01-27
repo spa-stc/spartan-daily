@@ -8,6 +8,7 @@ const images = await Google.getImages();
 <Card>
   <img
     data-showcase-img
+    class="max-h-md"
     src={images.at(0)}
     alt="Featured image. Content not predetermined"
   />
@@ -23,6 +24,6 @@ const images = await Google.getImages();
       }
 
       img.src = images[image];
-    }, 30 * 1000);
+    }, 20 * 1000);
   </script>
 </Card>
