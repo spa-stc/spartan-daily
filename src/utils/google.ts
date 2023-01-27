@@ -48,8 +48,9 @@ type Announcement = {
   startDate: Dayjs;
   endDate: Dayjs;
   title: string;
+  author?: string,
   body: string;
-  image: any;
+  image?: any;
 };
 
 export default class Google extends null {
@@ -77,9 +78,10 @@ export default class Google extends null {
           startDate: dayjs(row.start_date).subtract(1, "day"),
           endDate: dayjs(row.end_date).add(1, "day"),
           title: row.title,
+          author: row.author,
           body: row.body,
           // ex. https://drive.google.com/open?id=IIIDDDD
-          image: row.image.replace("/open?id=", "/uc?id="),
+          image: row.image?.replace("/open?id=", "/uc?id="),
         };
       })
       .filter(

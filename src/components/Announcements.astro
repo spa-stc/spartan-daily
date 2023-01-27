@@ -5,16 +5,17 @@ import Card from "./Card.astro";
 const announcements = await Google.getAnnouncements();
 ---
 
-<Card title="Announcements">
-  <ul>
+<Card>
+  <div class="grid grid-cols-1 divide-y-4 divide-dotted gap-4">
     {
       announcements.map((a) => (
-        <li>
-          <h1>{a.title}</h1>
+        <div>
+          <h3 class="text-xl text-black">{a.title}</h3>
+          {a.author && <h4 class="text-lg text-gray">{a.author}</h4>}
           <p>{a.body}</p>
-          <img src={a.image} alt="Image associated with announcement text" />
-        </li>
+          {a.image && <img src={a.image} alt="Image associated with announcement text" />}
+        </div>
       ))
     }
-  </ul>
+  </div>
 </Card>
