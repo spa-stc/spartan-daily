@@ -20,10 +20,10 @@ export default class Veracross extends null {
     return (
       cal.VCALENDAR[0]?.VEVENT.filter((event) =>
         dayjs(event.DTSTART.__value__, "YYYYMMDD").isSame(dayjs(), "day")
-      ).at(0)?.DESCRIPTION as string
+      ).at(0)?.DESCRIPTION
     )
-      .replace(/(\\n)*$/g, "")
-      .replaceAll("\\n", ", ");
+      ?.replace(/(\\n)*$/g, "")
+      .replaceAll("\\n", ", ") ?? "Lunch not available"
   }
 
   @Cacheable({ cacheKey: "schedule", ttlSeconds: 15 * 60 })
