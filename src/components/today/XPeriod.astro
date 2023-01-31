@@ -1,8 +1,11 @@
 ---
+import Google from "../../utils/google";
 import Card from "../Card.astro";
+
+const x = await Google.getX();
 ---
 
-<Card
-  title="X Period Today"
-  body="Not implemented – waiting for sheet permission"
-/>
+<Card title="X Period Today">
+  <p>{x.event ?? "Nothing scheduled"}</p>
+  {x.location && <p>{x.location}</p>}
+</Card>

@@ -1,7 +1,9 @@
 ---
 import dayjs from "dayjs";
 import spartan from "../assets/spartan.webp";
-const date = dayjs().format("ddd, MMMM D h:m:ss a");
+import Google from "../utils/google";
+const rday = (await Google.getX()).rday
+const date = dayjs().format(`${!!rday ? `[Day ${rday} - ]` : ""}ddd, MMMM D h:mm:ss a`);
 ---
 
 <div class="flex mt5 mx5 items-center text-navy">
@@ -9,16 +11,19 @@ const date = dayjs().format("ddd, MMMM D h:m:ss a");
     <img class="h15 hover:scale-110" src={spartan} alt="Spartan" />
     <h1 class="h12 m2 font-title text-6xl">Spartan Daily</h1>
   </a>
-  <h1 data-date class="font-os absolute right-10 text-2xl">{date}</h1>
+  <h1 data-date data-rday={rday} class="font-os absolute right-10 text-2xl">{date}</h1>
 </div>
 
+<!-- Can not use define:vars without inlining script, which does not make any sense here -->
+<!-- Hence data-rday usage and duplicated format between server/client side -->
 <script>
   import dayjs from "dayjs";
 
   const h1 = document.querySelector("[data-date]") as Element;
+  const rday = h1.getAttribute("data-rday");
   window.setInterval(
     (function updateDate() {
-      h1.textContent = dayjs().format("ddd, MMMM D h:m:ss a");
+      h1.textContent = dayjs().format(`${!!rday ? `[Day ${rday} - ]` : ""}ddd, MMMM D h:mm:ss a`);
       return updateDate;
     })(),
     500
