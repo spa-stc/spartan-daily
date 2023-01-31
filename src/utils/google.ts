@@ -116,4 +116,9 @@ export default class Google extends null {
       event: x.EVENT
     }
   }
+
+  @Cacheable({ cacheKey: "newsletter", ttlSeconds: 60 * 60 * 24})
+  static async getNewsletter(): Promise<string> {
+    return getSource("newsletter-id")
+  }
 }

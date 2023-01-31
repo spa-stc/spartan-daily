@@ -8,16 +8,7 @@ import XPeriod from "../components/today/XPeriod.astro";
 import Lunch from "../components/today/Lunch.astro";
 import Schedule from "../components/today/Schedule.astro";
 import HouseCup from "../components/housecup/HouseCup.astro";
-import QRCode from "qrcode";
-
-// no perms to fetch this right now, so... minimal POC
-const newsletter = await QRCode.toDataURL(
-  "https://docs.google.com/document/d/1OsR6CF628j_h-wipe8DoZCssiBl5K_N_sJ7NsmrzYYQ/edit",
-  {
-    type: 'image/webp',
-    margin: 0,
-  }
-)
+import Newsletter from "../components/Newsletter.astro";
 ---
 
 <Layout title="Spartan Daily">
@@ -31,9 +22,7 @@ const newsletter = await QRCode.toDataURL(
       </div>
       <ul class="space-y-4">
         <Lunch />
-        <Card title="Student Newsletter">
-          <img src={newsletter} />
-        </Card>  
+        <Newsletter />
       </ul>
       <Schedule />
       <XPeriod />
