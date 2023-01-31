@@ -12,7 +12,10 @@ const data = {
   gold: 600,
 } as CupData;
 
-const height = (val: number) => "height: " + Math.max((val / Math.max(data.blue, data.gold)) * 15, 0.025) + "rem;"
+const height = (val: number) =>
+  "height: " +
+  Math.max((val / Math.max(data.blue, data.gold)) * 15, 0.025) +
+  "rem;";
 ---
 
 <Card title="House Cup">

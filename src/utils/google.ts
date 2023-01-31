@@ -48,23 +48,23 @@ const xSheetId = await getSource("x-period-id");
 const xSheet = new GoogleSpreadsheet(xSheetId);
 await xSheet.useServiceAccountAuth({
   client_email: email,
-  private_key: key
-})
+  private_key: key,
+});
 
 type Announcement = {
   startDate: Dayjs;
   endDate: Dayjs;
   title: string;
-  author?: string,
+  author?: string;
   body: string;
   image?: any;
 };
 
 type XPeriod = {
-  rday?: string,
-  location?: string,
-  event?: string,
-}
+  rday?: string;
+  location?: string;
+  event?: string;
+};
 
 export default class Google extends null {
   @Cacheable({ cacheKey: "images", ttlSeconds: 15 * 60 })
@@ -102,23 +102,25 @@ export default class Google extends null {
       );
   }
 
-  @Cacheable({ cacheKey: "x", ttlSeconds: 15 * 60})
+  @Cacheable({ cacheKey: "x", ttlSeconds: 15 * 60 })
   static async getX(): Promise<XPeriod> {
-    await xSheet.loadInfo()
+    await xSheet.loadInfo();
     const xPds = xSheet.sheetsByIndex[0];
 
-    const x = (await xPds.getRows()).filter(x => x.DATE == dayjs().format("M/D/YYYY"))[0];
+    const x = (await xPds.getRows()).filter(
+      (x) => x.DATE == dayjs().format("M/D/YYYY")
+    )[0];
     if (!x) return {};
 
     return {
       rday: x.rday,
       location: x.LOCATION,
-      event: x.EVENT
-    }
+      event: x.EVENT,
+    };
   }
 
-  @Cacheable({ cacheKey: "newsletter", ttlSeconds: 60 * 60 * 24})
+  @Cacheable({ cacheKey: "newsletter", ttlSeconds: 60 * 60 * 24 })
   static async getNewsletter(): Promise<string> {
-    return getSource("newsletter-id")
+    return getSource("newsletter-id");
   }
 }
