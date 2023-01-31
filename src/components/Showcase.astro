@@ -1,29 +1,11 @@
 ---
 import Google from "../utils/google";
 import Card from "./Card.astro";
+import RotatingImage from "./RotatingImage.astro";
 
 const images = await Google.getImages();
 ---
 
 <Card>
-  <img
-    data-showcase-img
-    class="max-h-md"
-    src={images.at(0)}
-    alt="Featured image. Content not predetermined"
-  />
-  <script define:vars={{ images }}>
-    const img = document.querySelector("[data-showcase-img]");
-    let image = 0;
-
-    setInterval(() => {
-      image++;
-
-      if (image >= images.length) {
-        image = 0;
-      }
-
-      img.src = images[image];
-    }, 20 * 1000);
-  </script>
+  <RotatingImage images={images} random={false} speed={30} clazz="max-h-md" />
 </Card>

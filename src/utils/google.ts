@@ -57,7 +57,7 @@ type Announcement = {
   title: string;
   author?: string;
   body: string;
-  image?: any;
+  images?: string[];
 };
 
 type XPeriod = {
@@ -94,7 +94,9 @@ export default class Google extends null {
           author: row.author,
           body: row.body,
           // ex. https://drive.google.com/open?id=IIIDDDD
-          image: row.image?.replace("/open?id=", "/uc?id="),
+          images: row.images
+            ?.split(/, ?/)
+            .map((image: string) => image.replace("/open?id=", "/uc?id=")),
         };
       })
       .filter(

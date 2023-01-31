@@ -1,0 +1,56 @@
+---
+export interface Props {
+  images: string | string[];
+  speed?: number;
+  random?: boolean;
+  clazz?: string;
+}
+
+const { speed, images, random, clazz } = Astro.props;
+---
+
+<rotating-image
+  data-images={images}
+  data-speed={speed ?? 5}
+  data-random={random ?? true}
+>
+  <img class={clazz} />
+</rotating-image>
+
+<script>
+  class RotatingImage extends HTMLElement {
+    constructor() {
+      super();
+
+      const images = this.dataset.images.split(",");
+      const speed = this.dataset.speed;
+      const random = this.dataset.random;
+
+      const img = this.querySelector("img");
+      if (images.length == 1) {
+        img.src = images[0];
+        return;
+      }
+
+      let image = random ? Math.floor(images.length * Math.random()) : 0;
+
+      setInterval(
+        (function updateImage() {
+          img.src = images[image];
+          image++;
+
+          if (image >= images.length) {
+            image = 0;
+          }
+
+          return updateImage;
+        })(),
+        speed * 1000
+      );
+
+      setInterval(() => {});
+    }
+  }
+
+  customElements.define("rotating-image", RotatingImage);
+</script>
