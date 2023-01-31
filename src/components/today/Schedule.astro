@@ -1,11 +1,17 @@
 ---
+import Google from "../../utils/google";
 import Veracross from "../../utils/veracross";
 import Card from "../Card.astro";
 
 const schedule = await Veracross.getSchedule();
+const x = await Google.getX();
+let title = "Schedule";
+if (x.rday) {
+  title += ` - Day ${x.rday}`
+}
 ---
 
-<Card title="Schedule">
+<Card title={title}>
   <ul class="list-disc ml4">
     {schedule.map((block) => <li>{block}</li>)}
   </ul>
