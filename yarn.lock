@@ -600,6 +600,7 @@ __metadata:
     "@type-cacheable/core": ^11.0.1
     "@type-cacheable/node-cache-adapter": ^11.0.2
     "@types/google-spreadsheet": ^3.3.0
+    "@types/marked": ^4.0.8
     "@types/node": ^18.11.18
     "@types/qrcode": ^1.5.0
     "@unocss/preset-web-fonts": ^0.49.0
@@ -609,6 +610,7 @@ __metadata:
     google-spreadsheet: ^3.3.0
     icalts: ^0.0.2
     jose: ^4.11.2
+    marked: ^4.2.12
     node-cache: ^5.1.2
     prettier: ^2.8.3
     qrcode: ^1.5.1
@@ -908,6 +910,13 @@ __metadata:
   version: 0.0.30
   resolution: "@types/json5@npm:0.0.30"
   checksum: 8802648fa736801264fde08da7c08b57be8845bd75ecf50c1eee980245f6d2c10a00f0768d0979c7ec2e4ff7e1417226e527bfb045e7e1a6e6afcaf11706a5f0
+  languageName: node
+  linkType: hard
+
+"@types/marked@npm:^4.0.8":
+  version: 4.0.8
+  resolution: "@types/marked@npm:4.0.8"
+  checksum: 68278fa7acaa5d920cdc239d675b5daf842e0ad4779e4848cd617d9baf2ac1afccb5a264c331e37d80031d647e1640cb983cd31e73d45b28552670b4853fad8e
   languageName: node
   linkType: hard
 
@@ -3458,6 +3467,15 @@ __metadata:
   version: 3.0.3
   resolution: "markdown-table@npm:3.0.3"
   checksum: 8fcd3d9018311120fbb97115987f8b1665a603f3134c93fbecc5d1463380c8036f789e2a62c19432058829e594fff8db9ff81c88f83690b2f8ed6c074f8d9e10
+  languageName: node
+  linkType: hard
+
+"marked@npm:^4.2.12":
+  version: 4.2.12
+  resolution: "marked@npm:4.2.12"
+  bin:
+    marked: bin/marked.js
+  checksum: bd551cd61028ee639d4ca2ccdfcc5a6ba4227c1b143c4538f3cde27f569dcb57df8e6313560394645b418b84a7336c07ab1e438b89b6324c29d7d8cdd3102d63
   languageName: node
   linkType: hard
 

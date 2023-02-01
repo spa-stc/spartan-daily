@@ -2,6 +2,7 @@
 import Google from "../utils/google";
 import Card from "./Card.astro";
 import RotatingImage from "./RotatingImage.astro";
+import { marked } from "marked";
 
 const announcements = await Google.getAnnouncements();
 ---
@@ -13,7 +14,7 @@ const announcements = await Google.getAnnouncements();
         <div>
           <h3 class="text-xl text-black">{a.title}</h3>
           {a.author && <h4 class="text-lg text-gray">{a.author}</h4>}
-          <p>{a.body}</p>
+          <Fragment set:html={marked.parse(a.body)} />
           {a.images && (
             <RotatingImage images={a.images} random={true} speed={10} />
           )}
