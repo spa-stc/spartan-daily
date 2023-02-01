@@ -11,11 +11,12 @@ const announcements = await Google.getAnnouncements();
   <div class="grid grid-cols-1 divide-y-4 divide-dotted gap-4">
     {
       announcements.map((a) => (
-        <div>
+        <div class="text-base">
           <h3 class="text-xl text-black">{a.title}</h3>
           {a.author && <h4 class="text-lg text-gray">{a.author}</h4>}
           <Fragment set:html={marked.parse(a.body)} />
           {a.images && (
+            <br>
             <RotatingImage images={a.images} random={true} speed={10} />
           )}
         </div>
