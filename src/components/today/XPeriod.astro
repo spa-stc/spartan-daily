@@ -1,4 +1,5 @@
 ---
+import { marked } from "marked";
 import Google from "../../utils/google";
 import Card from "../Card.astro";
 
@@ -6,6 +7,6 @@ const x = await Google.getX();
 ---
 
 <Card title="X Period Today">
-  <p>{x.event ?? "Nothing scheduled"}</p>
+  <Fragment set:html={marked.parse(x.event ?? "Nothing scheduled")} />
   {x.location && <p>{x.location}</p>}
 </Card>
