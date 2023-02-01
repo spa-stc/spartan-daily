@@ -1,14 +1,23 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Showcase from "../components/Showcase.astro";
-import Card from "../components/Card.astro";
 import Announcements from "../components/Announcements.astro";
-// import QRCode from "qrcode";
+import QRCode from "qrcode";
 import XPeriod from "../components/today/XPeriod.astro";
 import Lunch from "../components/today/Lunch.astro";
 import Schedule from "../components/today/Schedule.astro";
 import HouseCup from "../components/housecup/HouseCup.astro";
 import Newsletter from "../components/Newsletter.astro";
+import Google from "../utils/google";
+import Card from "../components/Card.astro";
+
+const feedback = await QRCode.toDataURL(await Google.getFeedback(), {
+  margin: 0,
+});
+
+const submit = await QRCode.toDataURL(await Google.getSubmission(), {
+  margin: 0,
+});
 ---
 
 <Layout title="Spartan Daily">
@@ -20,15 +29,19 @@ import Newsletter from "../components/Newsletter.astro";
       <div class="col-span-3">
         <Showcase />
       </div>
-      <ul class="space-y-4">
+      <ul class="space-y-3 row-span-3">
         <Lunch />
         <Newsletter />
+        <Card title="Feedback">
+          <img src={feedback} />
+        </Card>
+        <Card title="Submissions">
+          <img src={submit} />
+        </Card>
       </ul>
       <Schedule />
       <XPeriod />
-      <div class="col-span-2">
-        <HouseCup />
-      </div>
+      <HouseCup />
     </div>
   </main>
 </Layout>

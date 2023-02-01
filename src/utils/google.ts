@@ -125,4 +125,14 @@ export default class Google extends null {
   static async getNewsletter(): Promise<string> {
     return getSource("newsletter-id");
   }
+
+  @Cacheable({ cacheKey: "feedback", ttlSeconds: 60 * 60 * 24 })
+  static async getFeedback(): Promise<string> {
+    return getSource("feedback");
+  }
+
+  @Cacheable({ cacheKey: "submission", ttlSeconds: 60 * 60 * 24 })
+  static async getSubmission(): Promise<string> {
+    return getSource("submission");
+  }
 }
