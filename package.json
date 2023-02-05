@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "wrangler pages dev ./dist",
+    "preview": "deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
     "astro": "astro"
   },
   "dependencies": {
@@ -24,7 +24,6 @@
     "web-auth-library": "^0.4.1"
   },
   "devDependencies": {
-    "@astrojs/vercel": "^3.0.1",
     "@googleapis/drive": "^4.0.1",
     "@types/gapi.client.drive": "^3.0.14",
     "@types/gapi.client.sheets": "^4.0.20201030",
