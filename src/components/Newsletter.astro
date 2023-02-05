@@ -1,14 +1,11 @@
 ---
 import Google from "../utils/google";
 import Card from "./Card.astro";
-import QRCode from "qrcode";
+import { QR } from "qr-svg";
 
-const newsletter = await QRCode.toDataURL(await Google.getNewsletter(), {
-  type: "image/webp",
-  margin: 0,
-});
+const newsletter = QR(await Google.getNewsletter());
 ---
 
 <Card title="Student Newsletter">
-  <img src={newsletter} />
+  <Fragment set:html={newsletter} />
 </Card>

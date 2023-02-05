@@ -1,0 +1,13 @@
+diff --git a/dist/index.js b/dist/index.js
+index 95a2bf52bbce710d357c2def5580710e0098e396..b1970c360ff8a961364a547ffc4a47d410dd0ead 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -53,7 +53,7 @@ function createIntegration(args) {
+         const entryUrl = new URL(_buildConfig.serverEntry, _buildConfig.server);
+         const pth = fileURLToPath(entryUrl);
+         await esbuild.build({
+-          target: "es2020",
++          target: "esnext",
+           platform: "browser",
+           entryPoints: [pth],
+           outfile: pth,

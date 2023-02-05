@@ -1,11 +1,9 @@
 import { defineConfig } from "astro/config";
 import UnoCSS from "unocss/astro";
-import node from "@astrojs/node";
+import deno from "@astrojs/deno";
 
 export default defineConfig({
   integrations: [UnoCSS()],
   output: "server",
-  adapter: node({
-    mode: "standalone",
-  }),
+  adapter: deno(),
 });

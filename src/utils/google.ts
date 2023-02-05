@@ -1,55 +1,7 @@
-import {
-  GoogleSpreadsheet,
-  GoogleSpreadsheetWorksheet,
-} from "google-spreadsheet";
 import { SOURCES_ID } from "./constants";
-import { JWT } from "google-auth-library";
-import { drive } from "@googleapis/drive";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
-import { Cacheable } from "@type-cacheable/core";
-
-const email = process.env.GOOGLE_SERVICE_EMAIL as string;
-const key = (process.env.GOOGLE_SERVICE_PRIVATE_KEY as string).replaceAll(
-  "\\n",
-  "\n"
-);
-
-const sources_sheet = new GoogleSpreadsheet(SOURCES_ID);
-await sources_sheet.useServiceAccountAuth({
-  client_email: email,
-  private_key: key,
-});
-await sources_sheet.loadInfo();
-
-const SOURCES: GoogleSpreadsheetWorksheet =
-  sources_sheet.sheetsByTitle[sources_sheet.title];
-
-export async function getSource(key: string): Promise<string> {
-  return SOURCES.getRows().then(
-    (rows) => rows.filter((row) => row.key == key).at(0)?.value
-  );
-}
-
-const imagesFolder = await getSource("images-folder");
-const auth = new JWT(email, undefined, key, [
-  "https://www.googleapis.com/auth/drive",
-]);
-const gdrive = drive({ version: "v3", auth });
-
-const announcementsSheetId = await getSource("announcements-id");
-const announcementsSheet = new GoogleSpreadsheet(announcementsSheetId);
-await announcementsSheet.useServiceAccountAuth({
-  client_email: email,
-  private_key: key,
-});
-
-const xSheetId = await getSource("x-period-id");
-const xSheet = new GoogleSpreadsheet(xSheetId);
-await xSheet.useServiceAccountAuth({
-  client_email: email,
-  private_key: key,
-});
+import GoogleAuth, { GoogleKey } from "cloudflare-workers-and-google-oauth";
 
 type Announcement = {
   startDate: Dayjs;
@@ -66,72 +18,107 @@ type XPeriod = {
   event?: string;
 };
 
+const service = import.meta.env.GOOGLE_SERVICE_ACCOUNT;
+if (!service)
+  throw new Error(
+    "Environment GOOGLE_SERVICE_ACCOUNT must contain service account JSON from cloud console"
+  );
+
+const token = await new GoogleAuth(JSON.parse(service) as GoogleKey, [
+  "https://www.googleapis.com/auth/drive.readonly",
+  "https://www.googleapis.com/auth/spreadsheets.readonly",
+]).getGoogleAuthToken();
+
+async function gFetch(
+  input: RequestInfo | URL,
+  init: RequestInit = {}
+): Promise<any> {
+  init.headers = {
+    ...init.headers,
+    authorization: `Bearer ${token}`,
+  };
+  return fetch(input, init).then((res) => res.json());
+}
+
+const sources: { [key: string]: string } = {};
+
+(
+  await gFetch(
+    `https://sheets.googleapis.com/v4/spreadsheets/${SOURCES_ID}/values/sources!A2:B1000?majorDimension=ROWS`
+  )
+).values.forEach((e: string[]) => {
+  // convert [["key", "val"]] to {key: "val"}
+  sources[e[0]] = e[1];
+});
+
+export function getSource(key: string): string {
+  return sources[key];
+}
+
 export default class Google extends null {
-  @Cacheable({ cacheKey: "images", ttlSeconds: 15 * 60 })
   static async getImages(): Promise<string[]> {
-    const files = (
-      await gdrive.files.list({
-        q: `'${imagesFolder}' in parents and trashed = false`,
-        fields: "files(webContentLink)",
-      })
-    ).data.files;
-    return files?.map((file) => file.webContentLink as string) ?? [];
+    const query = new URLSearchParams({
+      corpora: "user",
+      fields: "files(webContentLink)",
+      orderBy: "recency",
+      q: `'${sources["images-folder"]}' in parents and trashed = false`,
+    });
+
+    return gFetch(`https://www.googleapis.com/drive/v3/files?${query}`).then(
+      (resp) => resp.files.map((file: any) => file.webContentLink)
+    );
   }
 
-  @Cacheable({ cacheKey: "announcements", ttlSeconds: 15 * 60 })
   static async getAnnouncements(): Promise<Announcement[]> {
-    await announcementsSheet.loadInfo();
-    const announcements: GoogleSpreadsheetWorksheet =
-      announcementsSheet.sheetsByTitle[announcementsSheet.title];
-    const rows = await announcements.getRows();
-
-    return rows
-      .map((row) => {
+    // start_date,end_date,title,author,body,images
+    return (
+      await gFetch(
+        `https://sheets.googleapis.com/v4/spreadsheets/${sources["announcements-id"]}/values/announcements!A2:F1000?majorDimension=ROWS`
+      )
+    ).values
+      .map((row: string[]): Announcement => {
         return {
-          startDate: dayjs(row.start_date).subtract(1, "day"),
-          endDate: dayjs(row.end_date).add(1, "day"),
-          title: row.title,
-          author: row.author,
-          body: row.body,
-          // ex. https://drive.google.com/open?id=IIIDDDD
-          images: row.images
+          startDate: dayjs(row[0]).subtract(1, "day"),
+          endDate: dayjs(row[1]).add(1, "day"),
+          title: row[2],
+          author: row[3],
+          body: row[4],
+          images: row[5]
             ?.split(/, ?/)
-            .map((image: string) => image.replace("/open?id=", "/uc?id=")),
+            .map((image) => image.replace("/open?id=", "/uc?id=")),
         };
       })
       .filter(
-        (a) => a.startDate.isBefore(dayjs()) && a.endDate.isAfter(dayjs())
+        (a: Announcement) =>
+          a.startDate.isBefore(dayjs()) && a.endDate.isAfter(dayjs())
       );
   }
 
-  @Cacheable({ cacheKey: "x", ttlSeconds: 15 * 60 })
   static async getX(): Promise<XPeriod> {
-    await xSheet.loadInfo();
-    const xPds = xSheet.sheetsByIndex[0];
+    // DATE,DAY,rday,,LOCATION,EVENT,...
+    const today = (
+      await gFetch(
+        `https://sheets.googleapis.com/v4/spreadsheets/${sources["x-period-id"]}/values/22-23!A2:F1000`
+      )
+    ).values.filter((row: string[]) => row[0] == dayjs().format("M/D/YYYY"))[0];
 
-    const x = (await xPds.getRows()).filter(
-      (x) => x.DATE == dayjs().format("M/D/YYYY")
-    )[0];
-    if (!x) return {};
+    if (!today) return {};
 
     return {
-      rday: x.rday,
-      location: x.LOCATION,
-      event: x.EVENT,
+      rday: today[3],
+      location: today[5],
+      event: today[6],
     };
   }
 
-  @Cacheable({ cacheKey: "newsletter", ttlSeconds: 60 * 60 * 24 })
   static async getNewsletter(): Promise<string> {
     return getSource("newsletter-id");
   }
 
-  @Cacheable({ cacheKey: "feedback", ttlSeconds: 60 * 60 * 24 })
   static async getFeedback(): Promise<string> {
     return getSource("feedback");
   }
 
-  @Cacheable({ cacheKey: "submission", ttlSeconds: 60 * 60 * 24 })
   static async getSubmission(): Promise<string> {
     return getSource("submission");
   }
