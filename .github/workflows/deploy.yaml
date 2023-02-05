@@ -28,4 +28,5 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: "spa-stc-spartan-daily"
-          entrypoint: "./dist/server/entry.mjs"
+          entrypoint: "./server/entry.mjs"
+          root: "dist"
