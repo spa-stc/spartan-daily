@@ -18,7 +18,7 @@ type XPeriod = {
   event?: string;
 };
 
-const service = import.meta.env.GOOGLE_SERVICE_ACCOUNT;
+const service = process.env.GOOGLE_SERVICE_ACCOUNT;
 if (!service)
   throw new Error(
     "Environment GOOGLE_SERVICE_ACCOUNT must contain service account JSON from cloud console"
