@@ -4,15 +4,18 @@ import clsx from "clsx";
 export interface Props {
   title?: string;
   body?: string;
+  clazz?: string;
 }
 
-const { title, body } = Astro.props;
+const { title, body, clazz } = Astro.props;
 ---
 
 <li class="flex p1 list-none bg-white b-rd-2">
   <div class="pt pb pr5 pl5 wfull">
     {title && <h2 class="m0 text-2xl">{title}</h2>}
-    <div class={clsx(title && "mt2", "mb0", "color-gray-600", "text-xl")}>
+    <div
+      class={clsx(title && "mt2", "mb0", "color-gray-600", "text-xl", clazz)}
+    >
       {body ?? <slot />}
     </div>
   </div>

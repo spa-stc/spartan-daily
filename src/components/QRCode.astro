@@ -1,0 +1,15 @@
+---
+import { QR } from "qr-svg";
+import Card from "./Card.astro";
+
+export interface Props {
+  title?: string;
+  data: string;
+}
+
+const { title, data } = Astro.props;
+---
+
+<Card title={title} clazz="h-35">
+  <Fragment set:html={QR(data)} />
+</Card>

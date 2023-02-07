@@ -1,5 +1,8 @@
 name: Deploy
-on: [ push ]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
@@ -17,10 +20,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-      
+
       - name: Install dependencies
         run: yarn install
-      
+
       - name: Build
         run: yarn build
 
