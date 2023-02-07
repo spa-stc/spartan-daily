@@ -8,8 +8,10 @@ export interface Props {
 }
 
 const { title, data } = Astro.props;
+
+const qr = (data: string) => QR(data).replace("viewBox=", 'width="100%" height="100%" viewBox=')
 ---
 
 <Card title={title} clazz="h-35">
-  <Fragment set:html={QR(data)} />
+  <Fragment set:html={qr(data)} />
 </Card>

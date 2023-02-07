@@ -36,7 +36,6 @@
   },
   "packageManager": "yarn@3.3.1",
   "resolutions": {
-    "@astrojs/deno@^4.0.0": "patch:@astrojs/deno@npm%3A4.0.0#./.yarn/patches/@astrojs-deno-npm-4.0.0-94a79c50c6.patch",
-    "qr-svg@^1.1.0": "patch:qr-svg@npm%3A1.1.0#./.yarn/patches/qr-svg-npm-1.1.0-2503d72f3a.patch"
+    "@astrojs/deno@^4.0.0": "patch:@astrojs/deno@npm%3A4.0.0#./.yarn/patches/@astrojs-deno-npm-4.0.0-94a79c50c6.patch"
   }
 }
