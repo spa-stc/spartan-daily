@@ -84,7 +84,7 @@ export default class Veracross extends null {
       (await (await fetch(rotationCal)).text()).split(NEWLINE)
     ) as ICalMeta;
 
-    const schedule = cal.VCALENDAR[0].VEVENT?.filter((event) =>
+    const schedule = cal.VCALENDAR?.[0].VEVENT?.filter((event) =>
       dayjs(event.DTSTART as string, "YYYYMMDD[T]HHmmss[Z]").isSame(
         dayjs(),
         "day"
@@ -92,6 +92,6 @@ export default class Veracross extends null {
     )
       .filter((event) => !event.SUMMARY?.endsWith("L"))
       .map((event) => event.SUMMARY?.replaceAll(/US |E$/g, ""));
-    return schedule?.length > 0 ? schedule : ["Classes not scheduled today"];
+    return schedule?.length > 0 ? schedule : ["Classes not available"];
   }
 }
