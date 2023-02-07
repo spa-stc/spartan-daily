@@ -67,7 +67,7 @@ export default class Veracross extends null {
       (await (await fetch(lunchCal)).text()).split(NEWLINE)
     ) as ICalMeta;
     return (
-      cal.VCALENDAR[0]?.VEVENT?.filter((event) =>
+      cal.VCALENDAR?.[0]?.VEVENT?.filter((event) =>
         dayjs((event.DTSTART as KeyValue)?.__value__, "YYYYMMDD").isSame(
           dayjs(),
           "day"
