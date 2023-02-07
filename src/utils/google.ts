@@ -105,9 +105,9 @@ export default class Google extends null {
     if (!today) return {};
 
     return {
-      rday: today[3],
-      location: today[5],
-      event: today[6],
+      rday: today[2],
+      location: today[4],
+      event: today[5],
     };
   }
 
