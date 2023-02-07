@@ -17,7 +17,10 @@ const { title } = Astro.props;
     <link rel="icon" type="image/webp" href={spartan} />
     <meta name="generator" content={Astro.generator} />
     <!-- ( ಠ ಠ ) -->
-    <meta http-equiv="refresh" content="1200" />
+    <meta
+      http-equiv="refresh"
+      content={Math.round(120 + (Math.random() - 0.5) * 2 * 60).toString()}
+    />
     <title>{title}</title>
     <Header />
   </head>
