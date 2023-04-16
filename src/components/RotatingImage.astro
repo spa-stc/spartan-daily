@@ -24,7 +24,7 @@ const { speed, images, random, clazz } = Astro.props;
 
       const images = this.dataset.images.split(",");
       const speed = this.dataset.speed;
-      const random = this.dataset.random;
+      const random = this.dataset.random != null;
 
       const img = this.querySelector("img");
       if (images.length == 1) {
