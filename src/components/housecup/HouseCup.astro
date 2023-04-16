@@ -1,4 +1,5 @@
 ---
+import { getSource } from "../../utils/google";
 import Card from "../Card.astro";
 
 type CupData = {
@@ -7,8 +8,8 @@ type CupData = {
 };
 
 const data = {
-  blue: 100,
-  gold: 200,
+  blue: parseInt(getSource("hc-blue")),
+  gold: parseInt(getSource("hc-gold")),
 } as CupData;
 
 const height = (val: number) =>
