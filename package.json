@@ -4,38 +4,31 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
+    "dev": "yarn build && yarn preview",
     "build": "astro build",
     "preview": "deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/deno": "^4.0.0",
-    "@unocss/preset-web-fonts": "^0.49.0",
-    "astro": "^2.0.4",
+    "@astrojs/deno": "^4.1.0",
+    "@unocss/preset-web-fonts": "^0.51.4",
+    "astro": "^2.3.0",
     "cloudflare-workers-and-google-oauth": "^1.2.0",
     "clsx": "^1.2.1",
     "dayjs": "^1.11.7",
     "icalts": "^0.0.2",
-    "marked": "^4.2.12",
+    "marked": "^4.3.0",
     "qr-svg": "^1.1.0",
-    "unocss": "^0.49.0",
-    "web-auth-library": "^0.4.1"
+    "unocss": "^0.51.4"
   },
   "devDependencies": {
-    "@googleapis/drive": "^4.0.1",
-    "@types/gapi.client.drive": "^3.0.14",
-    "@types/gapi.client.sheets": "^4.0.20201030",
-    "@types/google-spreadsheet": "^3.3.0",
     "@types/marked": "^4.0.8",
     "@types/node": "^18.11.18",
-    "google-spreadsheet": "^3.3.0",
-    "prettier": "^2.8.3",
-    "wrangler": "^2.9.0"
+    "@unocss/reset": "^0.51.4",
+    "prettier": "^2.8.7"
   },
   "packageManager": "yarn@3.3.1",
   "resolutions": {
-    "@astrojs/deno@^4.0.0": "patch:@astrojs/deno@npm%3A4.0.0#./.yarn/patches/@astrojs-deno-npm-4.0.0-94a79c50c6.patch"
+    "@astrojs/deno@^4.1.0": "patch:@astrojs/deno@npm%3A4.1.0#./.yarn/patches/@astrojs-deno-npm-4.1.0-f4204de342.patch"
   }
 }

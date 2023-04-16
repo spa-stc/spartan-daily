@@ -16,7 +16,6 @@ const announcements = await Google.getAnnouncements();
           {a.author && <h4 class="text-lg text-gray">{a.author}</h4>}
           <Fragment set:html={marked.parse(a.body)} />
           {a.images && (
-            <br>
             <RotatingImage images={a.images} random={true} speed={10} />
           )}
         </div>

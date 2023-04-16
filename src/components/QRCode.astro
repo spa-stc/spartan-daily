@@ -9,7 +9,8 @@ export interface Props {
 
 const { title, data } = Astro.props;
 
-const qr = (data: string) => QR(data).replace("viewBox=", 'width="100%" height="100%" viewBox=')
+const qr = (data: string) =>
+  QR(data).replace("viewBox=", 'width="100%" height="100%" viewBox=');
 ---
 
 <Card title={title} clazz="h-35">
