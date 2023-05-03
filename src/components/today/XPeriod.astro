@@ -1,5 +1,5 @@
 ---
-import { marked } from "marked";
+import marked from "../../utils/markdown"
 import Google from "../../utils/google";
 import Card from "../Card.astro";
 
@@ -7,6 +7,5 @@ const x = await Google.getX();
 ---
 
 <Card title="X Period Today">
-  <Fragment set:html={marked.parse(x.event ?? "Nothing scheduled")} />
-  {x.location && <p>{x.location}</p>}
+  <Fragment set:html={marked.parse(x.event ?? "Nothing scheduled")} /> 
 </Card>

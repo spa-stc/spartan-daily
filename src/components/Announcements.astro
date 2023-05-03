@@ -2,7 +2,7 @@
 import Google from "../utils/google";
 import Card from "./Card.astro";
 import RotatingImage from "./RotatingImage.astro";
-import { marked } from "marked";
+import marked from "../utils/markdown";
 
 const announcements = await Google.getAnnouncements();
 ---
